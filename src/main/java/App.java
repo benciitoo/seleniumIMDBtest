@@ -4,7 +4,7 @@ public class App {
 
     public static void main(String[] args) {
         User.getMainPage();
-        User.loginToIMDBWithUserEmailAndPassword("bence.banszegi@gmail.com", "imdbpassword");
+        User.signInToIMDBWithUserEmailAndPassword("bence.banszegi@gmail.com", "imdbpassword");
 
     }
 

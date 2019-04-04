@@ -12,7 +12,7 @@ public class User {
         driver.get("https://imdb.com");
     }
 
-    public static void navigateToLoginForm() {
+    public static void navigateToSignInForm() {
         driver.findElement(By.id("imdb-signin-link")).click();
         driver.findElement(By.xpath("//*[@id=\"signin-options\"]/div/div[1]/a[1]")).click();
     }
@@ -29,8 +29,8 @@ public class User {
         driver.findElement(By.id("signInSubmit")).click();
     }
 
-    public static void loginToIMDBWithUserEmailAndPassword (String userEmail, String password){
-        navigateToLoginForm();
+    public static void signInToIMDBWithUserEmailAndPassword (String userEmail, String password){
+        navigateToSignInForm();
         sendUserEmailToLoginForm(userEmail);
         sendUserPasswordToLoginForm(password);
         clickSignInButton();
