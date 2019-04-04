@@ -5,18 +5,20 @@ public class App {
     public static void main(String[] args) throws Exception {
         User.getMainPage();
         User.signInToIMDBWithUserEmailAndPassword("bence.banszegi@gmail.com", "imdbpassword");
-        User.searchInSearchfieldAndAddFirstSuggestionToWatchList("Jurassic Park");
+        User.goToWatchList();
+        User.sortWatchListByAlphabetical();
+        User.goToActivityPage();
+        User.goToYourRatingsPage();
+        User.logout();
+
+        //Thread.sleep(1000);
+        //User.clickOnAscendDescendButton();
 
 
-        //Thread.sleep(2000);
-        //User.quitSession();
+        Thread.sleep(2000);
+        User.quitSession();
 
-       /* User.goToWatchList();
-        User.clickEditOptionInWatchList();
-        User.addToWatchListInWatchListEditMenu("Snatch");*/
-
-
-
+        //User.logout();
 
 
     }
