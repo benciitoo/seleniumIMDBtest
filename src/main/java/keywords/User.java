@@ -3,7 +3,11 @@ package keywords;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class User {
 
@@ -42,11 +46,15 @@ public class User {
         driver.findElement(By.id("nblogout")).click();
     }
 
+
+    //Upper searchbar
     public static void search(String searchKeyWord) {
         driver.findElement(By.id("navbar-query")).sendKeys(searchKeyWord);
         driver.findElement(By.id("navbar-submit-button")).click();
     }
 
+
+    //Watchlist methods
     public static void goToWatchList(){
         driver.findElement(By.id("navWatchlistMenu")).click();
     }
@@ -55,9 +63,11 @@ public class User {
         driver.findElement(By.linkText("EDIT")).click();
     }
 
-    public static void addToWatchList (String searchKeyWord) {
+    public static void addToWatchListInWatchListEditMenu (String searchKeyWord) {
         driver.findElement(By.id("add-to-list-search")).sendKeys(searchKeyWord);
-        
+        WebDriverWait waitForSuggestions = new WebDriverWait(driver, 10);
+        waitForSuggestions.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"add-to-list-search-results\"]/a[1]")));
+        driver.findElement(By.xpath("//*[@id=\"add-to-list-search-results\"]/a[1]")).click();
     }
 
 

@@ -7,6 +7,7 @@ public class App {
         User.signInToIMDBWithUserEmailAndPassword("bence.banszegi@gmail.com", "imdbpassword");
         User.goToWatchList();
         User.clickEditOptionInWatchList();
+        User.addToWatchListInWatchListEditMenu("Snatch");
 
 
 
