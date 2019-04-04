@@ -6,7 +6,10 @@ public class App {
         User.getMainPage();
         User.signInToIMDBWithUserEmailAndPassword("bence.banszegi@gmail.com", "imdbpassword");
 
+
+
+
+
+        
     }
-
-
 }

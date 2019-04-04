@@ -1,6 +1,7 @@
 package keywords;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
@@ -21,19 +22,24 @@ public class User {
         driver.findElement(By.id("ap_email")).sendKeys(userEmail);
     }
 
-    public static void sendUserPasswordToLoginForm(String password){
+    public static void sendUserPasswordToLoginForm(String password) {
         driver.findElement(By.id("ap_password")).sendKeys(password);
     }
 
-    public static void clickSignInButton(){
+    public static void clickSignInButton() {
         driver.findElement(By.id("signInSubmit")).click();
     }
 
-    public static void signInToIMDBWithUserEmailAndPassword (String userEmail, String password){
+    public static void signInToIMDBWithUserEmailAndPassword(String userEmail, String password) {
         navigateToSignInForm();
         sendUserEmailToLoginForm(userEmail);
         sendUserPasswordToLoginForm(password);
         clickSignInButton();
+    }
+
+    public static void logout() {
+        ((JavascriptExecutor) driver).executeScript("document.querySelector('#navUserMenu > div').style.display=\"block\"");
+        driver.findElement(By.id("nblogout")).click();
     }
 
 
