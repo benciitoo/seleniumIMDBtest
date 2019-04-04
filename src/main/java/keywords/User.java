@@ -53,6 +53,16 @@ public class User {
         driver.findElement(By.id("navbar-submit-button")).click();
     }
 
+    public static void searchAndAddToWatchListFirstSuggestion(String searchKeyWord){
+        search(searchKeyWord);
+
+        WebDriverWait waitForSuggestions = new WebDriverWait(driver, 10);
+        waitForSuggestions.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")));
+        driver.findElement(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")).click();
+
+    }
+
+
 
     //Watchlist methods
     public static void goToWatchList(){
@@ -63,7 +73,7 @@ public class User {
         driver.findElement(By.linkText("EDIT")).click();
     }
 
-    public static void addToWatchListInWatchListEditMenu (String searchKeyWord) {
+    public static void addFirstSuggestionToWatchListInWatchListEditMenu (String searchKeyWord) {
         driver.findElement(By.id("add-to-list-search")).sendKeys(searchKeyWord);
         WebDriverWait waitForSuggestions = new WebDriverWait(driver, 10);
         waitForSuggestions.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"add-to-list-search-results\"]/a[1]")));
