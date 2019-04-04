@@ -12,10 +12,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class User {
 
     static WebDriver driver = new FirefoxDriver();
+    static WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public static void getMainPage() {
         driver.get("https://imdb.com");
+        driver.manage().window().maximize();
     }
+
+    public static void quitSession(){
+        driver.quit();
+    }
+
 
     public static void navigateToSignInForm() {
         driver.findElement(By.id("imdb-signin-link")).click();
@@ -53,13 +60,14 @@ public class User {
         driver.findElement(By.id("navbar-submit-button")).click();
     }
 
-    public static void searchAndAddToWatchListFirstSuggestion(String searchKeyWord){
-        search(searchKeyWord);
+    public static void searchInSearchfieldAndAddFirstSuggestionToWatchList(String searchKeyWord){
+        driver.findElement(By.id("navbar-query")).sendKeys(searchKeyWord);
 
-        WebDriverWait waitForSuggestions = new WebDriverWait(driver, 10);
-        waitForSuggestions.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")));
         driver.findElement(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")).click();
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"title-overview-widget\"]/div[2]/div[2]/span/div")));
+        driver.findElement(By.xpath("//*[@id=\"title-overview-widget\"]/div[2]/div[2]/span/div")).click();
     }
 
 
@@ -73,9 +81,9 @@ public class User {
         driver.findElement(By.linkText("EDIT")).click();
     }
 
-    public static void addFirstSuggestionToWatchListInWatchListEditMenu (String searchKeyWord) {
+    public static void searchInWatchListEditMenuAndAddFirstSuggestionToWatchList (String searchKeyWord) {
         driver.findElement(By.id("add-to-list-search")).sendKeys(searchKeyWord);
-        WebDriverWait waitForSuggestions = new WebDriverWait(driver, 10);
+        WebDriverWait waitForSuggestions = new WebDriverWait(driver, 5);
         waitForSuggestions.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"add-to-list-search-results\"]/a[1]")));
         driver.findElement(By.xpath("//*[@id=\"add-to-list-search-results\"]/a[1]")).click();
     }
