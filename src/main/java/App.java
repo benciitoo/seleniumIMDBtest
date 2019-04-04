@@ -5,11 +5,12 @@ public class App {
     public static void main(String[] args) {
         User.getMainPage();
         User.signInToIMDBWithUserEmailAndPassword("bence.banszegi@gmail.com", "imdbpassword");
+        User.goToWatchList();
+        User.clickEditOptionInWatchList();
 
 
 
 
 
-        
     }
 }

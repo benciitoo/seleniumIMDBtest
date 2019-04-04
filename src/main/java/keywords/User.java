@@ -42,5 +42,24 @@ public class User {
         driver.findElement(By.id("nblogout")).click();
     }
 
+    public static void search(String searchKeyWord) {
+        driver.findElement(By.id("navbar-query")).sendKeys(searchKeyWord);
+        driver.findElement(By.id("navbar-submit-button")).click();
+    }
+
+    public static void goToWatchList(){
+        driver.findElement(By.id("navWatchlistMenu")).click();
+    }
+
+    public static void clickEditOptionInWatchList(){
+        driver.findElement(By.linkText("EDIT")).click();
+    }
+
+    public static void addToWatchList (String searchKeyWord) {
+        driver.findElement(By.id("add-to-list-search")).sendKeys(searchKeyWord);
+        
+    }
+
+
 
 }
