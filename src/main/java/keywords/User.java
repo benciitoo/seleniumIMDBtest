@@ -11,9 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 
 public class User {
@@ -184,9 +183,8 @@ public class User {
     }*/
 
     public static List<String> returnErrorMessageIfNoEmailAndNoPasswordProvided(){
-        List<String> errorList = new ArrayList<String>();
-        errorList.add(driver.findElement(By.xpath("//*[@id=\"auth-error-message-box\"]/div/div/dl/li[1]/span")).getText());
-        errorList.add(driver.findElement(By.xpath("//*[@id=\"auth-error-message-box\"]/div/div/dl/li[2]/span")).getText());
+        List<String> errorList = driver.findElement(By.id("auth-error-message-box")).findElements(By.className("a-list-item"))
+                .stream().map(x -> x.getText()).collect(Collectors.toList());
         return errorList;
     }
 

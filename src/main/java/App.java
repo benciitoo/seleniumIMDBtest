@@ -7,6 +7,7 @@ public class App {
         User.signInToIMDBWithUserEmailAndPassword("bence.banszegi@gmail.com", "imdbpassword");
 
         User.logout();
+        User.quitSession();
         /*User.goToWatchList();
         User.sortWatchListByAlphabetical();
         User.logout();*/
