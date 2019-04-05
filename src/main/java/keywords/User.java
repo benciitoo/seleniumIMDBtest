@@ -39,6 +39,10 @@ public class User {
         driver.quit();
     }
 
+    public static void closeBrowser() {
+        driver.close();
+    }
+
 
     //login methods
     public static void navigateToSignInForm() {
@@ -121,7 +125,6 @@ public class User {
     //Watchlist methods
     public static void goToWatchList() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Watchlist")));
-        Actions activity = new Actions(driver);
         activity.moveToElement(driver.findElement(By.linkText("Watchlist"))).build().perform();
         driver.findElement(By.linkText("Watchlist")).click();
     }
