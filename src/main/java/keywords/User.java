@@ -190,5 +190,8 @@ public class User {
         return errorList;
     }
 
+    public static String returnWatchListPageText(){
+        return driver.findElement(By.xpath("//*[@id=\"center-1-react\"]/div/div[1]/div/div[2]/h1")).getText();
+    }
 
 }

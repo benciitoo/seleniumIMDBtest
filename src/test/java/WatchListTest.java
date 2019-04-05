@@ -11,6 +11,10 @@ public class WatchListTest {
         User.maximizeBrowser();
         User.getMainPage();
         User.signInToIMDBWithUserEmailAndPassword("bence.banszegi@gmail.com", "imdbpassword");
+    }
+
+    @Before
+    public void goToWatchListPage(){
         User.goToWatchList();
     }
 
@@ -26,8 +30,8 @@ public class WatchListTest {
 
 
     @Test
-    public void akarmi(){
-        assertEquals("hello", "hello");
+    public void checkIfBrowserIsOnWatchListPage(){
+        assertTrue(User.returnWatchListPageText().equals("Your Watchlist"));
     }
 
 
