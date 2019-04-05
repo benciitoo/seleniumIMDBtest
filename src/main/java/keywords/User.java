@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -21,15 +23,21 @@ public class User {
     static Actions activity = new Actions(driver);
 
 
-    public static void getMainPage() {
-        driver.get("https://imdb.com");
+    public static void maximizeBrowser() {
         driver.manage().window().maximize();
     }
 
-    public static void quitSession(){
-        driver.quit();
+    public static void getMainPage() {
+        driver.get("https://imdb.com");
     }
 
+    public static void deleteAllCookies() {
+        driver.manage().deleteAllCookies();
+    }
+
+    public static void quitSession() {
+        driver.quit();
+    }
 
 
     //login methods
@@ -59,9 +67,8 @@ public class User {
     }
 
 
-
     //user dropdown menu methods
-    public static void logout() throws Exception{
+    public static void logout() throws Exception {
         /*activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
         Thread.sleep(1000);*/
         Actions logout = new Actions(driver);
@@ -81,7 +88,7 @@ public class User {
     }
 
 
-    public static void goToYourRatingsPage() throws Exception{
+    public static void goToYourRatingsPage() throws Exception {
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nbusername")));
         activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
         Thread.sleep(1000);
@@ -94,14 +101,13 @@ public class User {
     }
 
 
-
     //Upper searchbar methods
     public static void search(String searchKeyWord) {
         driver.findElement(By.id("navbar-query")).sendKeys(searchKeyWord);
         driver.findElement(By.id("navbar-submit-button")).click();
     }
 
-    public static void searchInSearchfieldAndAddFirstSuggestionToWatchList(String searchKeyWord){
+    public static void searchInSearchfieldAndAddFirstSuggestionToWatchList(String searchKeyWord) {
         driver.findElement(By.id("navbar-query")).sendKeys(searchKeyWord);
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")));
@@ -112,20 +118,19 @@ public class User {
     }
 
 
-
     //Watchlist methods
-    public static void goToWatchList(){
+    public static void goToWatchList() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Watchlist")));
         Actions activity = new Actions(driver);
         activity.moveToElement(driver.findElement(By.linkText("Watchlist"))).build().perform();
         driver.findElement(By.linkText("Watchlist")).click();
     }
 
-    public static void clickEditOptionInWatchList(){
+    public static void clickEditOptionInWatchList() {
         driver.findElement(By.linkText("EDIT")).click();
     }
 
-    public static void searchInWatchListEditMenuAndAddFirstSuggestionToWatchList (String searchKeyWord) {
+    public static void searchInWatchListEditMenuAndAddFirstSuggestionToWatchList(String searchKeyWord) {
         driver.findElement(By.id("add-to-list-search")).sendKeys(searchKeyWord);
         WebDriverWait waitForSuggestions = new WebDriverWait(driver, 5);
         waitForSuggestions.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"add-to-list-search-results\"]/a[1]")));
@@ -133,9 +138,8 @@ public class User {
     }
 
 
-
     //Sort Watchlist
-    public static void sortWatchListByAlphabetical(){
+    public static void sortWatchListByAlphabetical() {
         Select dropDown = new Select(driver.findElement(By.id("lister-sort-by-options")));
         dropDown.selectByValue("ALPHA");
     }
@@ -145,20 +149,43 @@ public class User {
     }*/
 
 
-   public static void cheatMoveMouse() throws Exception{
-       activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
-       Thread.sleep(1000);
-   }
-
-
-
-   //for the JUnit tests
-    public static String returnSignedInUsername() {
-       return driver.findElement(By.id("nbusername")).getText();
+    public static void cheatMoveMouse() throws Exception {
+        activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
+        Thread.sleep(1000);
     }
 
-    public static String returnErrorMessageIfNoPasswordProvided() {
+
+    //for the JUnit tests
+    public static String returnSignedInUsername() {
+        return driver.findElement(By.id("nbusername")).getText();
+    }
+
+    public static String returnSingleLineLoginErrorMessage(){
         return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
     }
+
+    /*public static String returnErrorMessageIfNoPasswordProvided() {
+        return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
+    }
+
+    public static String returnErrorMessageIfNoEmailProvided() {
+        return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
+    }
+
+    public static String returnErrorMessageIfValidEmailButInvalidPasswordProvided(){
+        return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
+    }
+
+    public static String returnErrorMessageIfInvalidEmailAndInvalidPasswordProvided(){
+        return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
+    }*/
+
+    public static List<String> returnErrorMessageIfNoEmailAndNoPasswordProvided(){
+        List<String> errorList = new ArrayList<String>();
+        errorList.add(driver.findElement(By.xpath("//*[@id=\"auth-error-message-box\"]/div/div/dl/li[1]/span")).getText());
+        errorList.add(driver.findElement(By.xpath("//*[@id=\"auth-error-message-box\"]/div/div/dl/li[2]/span")).getText());
+        return errorList;
+    }
+
 
 }
