@@ -13,6 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
+
 public class User {
 
     static WebDriver driver = new FirefoxDriver();
@@ -33,6 +34,7 @@ public class User {
 
     //login methods
     public static void navigateToSignInForm() {
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("imdb-signin-link"))));
         driver.findElement(By.id("imdb-signin-link")).click();
         driver.findElement(By.xpath("//*[@id=\"signin-options\"]/div/div[1]/a[1]")).click();
     }
@@ -60,10 +62,10 @@ public class User {
 
     //user dropdown menu methods
     public static void logout() throws Exception{
-        activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
-        Thread.sleep(1000);
+        /*activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
+        Thread.sleep(1000);*/
         Actions logout = new Actions(driver);
-        logout.moveToElement(driver.findElement(By.id("nbusername"))).build().perform();
+        logout.moveToElement(driver.findElement(By.id("navUserMenu"))).build().perform();
         //((JavascriptExecutor) driver).executeScript("document.querySelector('#navUserMenu > div').style.display=\"block\"");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nblogout")));
         driver.findElement(By.id("nblogout")).click();
@@ -72,7 +74,7 @@ public class User {
 
     public static void goToActivityPage() {
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nbusername")));
-        activity.moveToElement(driver.findElement(By.id("nbusername"))).build().perform();
+        activity.moveToElement(driver.findElement(By.id("navUserMenu"))).build().perform();
         //((JavascriptExecutor) driver).executeScript("document.querySelector('#navUserMenu > div').style.display=\"block\"");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Your Activity")));
         driver.findElement(By.linkText("Your Activity")).click();
@@ -83,9 +85,11 @@ public class User {
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("nbusername")));
         activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
         Thread.sleep(1000);
-        activity.moveToElement(driver.findElement(By.id("nbusername"))).build().perform();
+        //wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("navUserMenu")));
+        activity.moveToElement(driver.findElement(By.id("navUserMenu"))).build().perform();
         //((JavascriptExecutor) driver).executeScript("document.querySelector('#navUserMenu > div').style.display=\"block\"");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Your Ratings")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Your Ratings")));
         driver.findElement(By.linkText("Your Ratings")).click();
     }
 
@@ -139,5 +143,22 @@ public class User {
    /* public static void clickOnAscendDescendButton(){
         driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div/div[1]/div/span/div/div/div[2]/div[1]/div[1]/div[1]/button/span")).click();
     }*/
+
+
+   public static void cheatMoveMouse() throws Exception{
+       activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
+       Thread.sleep(1000);
+   }
+
+
+
+   //for the JUnit tests
+    public static String returnSignedInUsername() {
+       return driver.findElement(By.id("nbusername")).getText();
+    }
+
+    public static String returnErrorMessageIfNoPasswordProvided() {
+        return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
+    }
 
 }
