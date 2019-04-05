@@ -64,5 +64,4 @@ public class LoginTest {
         User.signInToIMDBWithUserEmailAndPassword("thereIsNoSuchEmailLikeThis12345@nomail.com", "randomPass");
         assertEquals("We cannot find an account with that email address", User.returnSingleLineLoginErrorMessage());
     }
-
 }
