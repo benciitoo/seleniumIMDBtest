@@ -1,13 +1,22 @@
 import keywords.User;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class App {
 
-    public static void main(String[] args) throws Exception {
-        User.getMainPage();
-        User.signInToIMDBWithUserEmailAndPassword("bence.banszegi@gmail.com", "imdbpassword");
+    static WebDriver driver = new FirefoxDriver();
+    static WebDriverWait wait = new WebDriverWait(driver, 5);
+    static Actions activity = new Actions(driver);
 
-        User.logout();
-        User.quitSession();
+    public static void main(String[] args) throws Exception {
+        User.getMainPage(driver);
+        User.signInToIMDBWithUserEmailAndPassword(driver, wait,"bence.banszegi@gmail.com", "imdbpassword");
+        User.goToWatchList(driver,wait,activity);
+        Thread.sleep(2000);
+        User.logout(driver, wait, activity);
+        User.quitSession(driver);
         /*User.goToWatchList();
         User.sortWatchListByAlphabetical();
         User.logout();*/
