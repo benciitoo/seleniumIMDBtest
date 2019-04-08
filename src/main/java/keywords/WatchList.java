@@ -63,14 +63,6 @@ public class WatchList {
     }
 
 
-    public static void rateMovieThatWasSelectedInUpperSearchBar(WebDriver driver, String movie, int star) {
-        UpperSearchBar.search(driver, movie);
-        driver.findElement(By.xpath("//*[@id=\"star-rating-widget\"]/div/button/span[1]")).click();
-        driver.findElement(By.xpath(String.format("//*[@id=\"star-rating-widget\"]/div/div/span[1]/span/a[%s]", star))).click();
-    }
-
-
-
     public static void deleteMovieFromWatchlist(WebDriver driver, String movieTitleInMyWatchList){
         List<WebElement> moviesInWatchlist = driver.findElements(By.className("lister-item"));
        /* ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()", driver.findElement(By.xpath("//*[@id=\"1489765909\"]")));
