@@ -14,9 +14,11 @@ public class App {
     public static void main(String[] args) throws Exception {
         User.getMainPage(driver);
         User.signInToIMDBWithUserEmailAndPassword(driver, wait,"bence.banszegi@gmail.com", "imdbpassword");
-        WatchList.goToWatchList(driver,wait,activity);
-        WatchList.clickEditOptionInWatchList(driver);
-        WatchList.deleteMovieFromWatchlist(driver, "The Matrix");
+        WatchList.goToWatchList(driver, wait, activity);
+        WatchList.rateMovieByGivenNameInWatchList(driver,wait,"The Matrix", 5);
+
+        //WatchList.clickEditOptionInWatchList(driver);
+        //WatchList.deleteMovieFromWatchlist(driver, "The Matrix");
 
 
         //WatchList.rateMovieByGivenName(driver, wait,"Snatch");

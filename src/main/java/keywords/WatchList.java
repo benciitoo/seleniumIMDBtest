@@ -32,34 +32,41 @@ public class WatchList {
     }
 
 
-    public static void rateMovieByGivenName (WebDriver driver, WebDriverWait wait, String movieTitleInMyWatchList) throws Exception{
+    public static void rateMovieByGivenNameInWatchList (WebDriver driver, WebDriverWait wait, String movieTitleInMyWatchList, int starRating) throws Exception{
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("center-1-react"))));
-        /*System.out.println(driver.findElement(By.id("center-1-react"))
-                .findElement(By.linkText(movieTitleInMyWatchList)).findElement(By.className("lister-item-year")).getText());*/
-        //Thread.sleep(2000);
         List<WebElement> moviesInWatchlist = new ArrayList<>(driver.findElement(By.id("center-1-react"))
                 .findElements(By.className("lister-item-content")));
-        // .findElements(By.xpath("(//DIV[@class='lister-item-content'])")));
-        System.out.println(moviesInWatchlist.size());
+        // .findElements(By.xpath("(//DIV[@class='lister-item-content'])")));  EZ IS MŰKÖDIK
 
         WebElement theOne = null;
-        //theOne = moviesInWatchlist.stream().filter(x -> x.findElement(By.tagName("h3")).getText().equals(movieTitleInMyWatchList)).findFirst();
         for (WebElement element : moviesInWatchlist) {
             if (element.findElement(By.tagName("h3")).getText().equals(movieTitleInMyWatchList)) {
-                System.out.println(element.findElement(By.tagName("h3")).getText());
                 theOne = element;
             }
         }
 
         if (theOne != null) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", theOne);
             wait.until(ExpectedConditions.elementToBeClickable(theOne
                     .findElement(By.tagName("button")))).click();
-            // .findElement(By.xpath("//SPAN[@class='star-rating-text']")))).click();
+            //theOne.findElement(By.xpath(String.format("//*[@id=\"star-rating-widget\"]/div/div/span[1]/span/a[%s]", star))).click();
+            //theOne.findElement(By.xpath(String.format("//DIV[@class='star-rating']/span[1]/span[1]/a[%s]", star))).click();
+
+            theOne.findElement(By.className("star-rating-button"))
+                    .findElement(By.className("star-rating-stars"))
+                    .findElements(By.tagName("a"))
+                    .get(starRating - 1)
+                    .click();
         } else {
             System.out.println("nincs ilyen nevű film");
         }
+    }
 
 
+    public static void rateMovieThatWasSelectedInUpperSearchBar(WebDriver driver, String movie, int star) {
+        UpperSearchBar.search(driver, movie);
+        driver.findElement(By.xpath("//*[@id=\"star-rating-widget\"]/div/button/span[1]")).click();
+        driver.findElement(By.xpath(String.format("//*[@id=\"star-rating-widget\"]/div/div/span[1]/span/a[%s]", star))).click();
     }
 
 
@@ -94,9 +101,6 @@ public class WatchList {
     }
 
 
-
-
-
     //Sort Watchlist
     public static void sortWatchListByAlphabetical(WebDriver driver) {
         Select dropDown = new Select(driver.findElement(By.id("lister-sort-by-options")));
@@ -106,5 +110,4 @@ public class WatchList {
    /* public static void clickOnAscendDescendButton(){
         driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div/div[1]/div/span/div/div/div[2]/div[1]/div[1]/div[1]/button/span")).click();
     }*/
-
 }
