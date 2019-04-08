@@ -25,19 +25,19 @@ public class WatchListTest {
 
     @Before
     public void goToWatchListPage(){
-        User.deleteAllCookies(driver);
         WatchList.goToWatchList(driver, wait, activity);
     }
 
     @AfterClass
     public static void quitSession(){
+        User.deleteAllCookies(driver);
         User.quitSession(driver);
     }
 
 
     @Test
     public void checkIfBrowserIsOnWatchListPage(){
-        //User.goToWatchList(driver, wait, activity);
+        WatchList.goToWatchList(driver, wait, activity);
         assertEquals("Your Watchlist", User.returnWatchListPageText(driver, wait));
     }
 }

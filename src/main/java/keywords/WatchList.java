@@ -20,9 +20,11 @@ public class WatchList {
         driver.findElement(By.linkText("Watchlist")).click();
     }
 
+
     public static void clickEditOptionInWatchList(WebDriver driver) {
         driver.findElement(By.linkText("EDIT")).click();
     }
+
 
     public static void searchInWatchListEditMenuAndAddFirstSuggestionToWatchList(WebDriver driver, String searchKeyWord) {
         driver.findElement(By.id("add-to-list-search")).sendKeys(searchKeyWord);
@@ -32,9 +34,11 @@ public class WatchList {
     }
 
 
-    public static void rateMovieByGivenNameInWatchList (WebDriver driver, WebDriverWait wait, String movieTitleInMyWatchList, int starRating) throws Exception{
-
-
+    public static void rateMovieByGivenNameInWatchList(WebDriver driver, WebDriverWait wait, String movieTitleInMyWatchList, int starRating) throws Exception {
+        if (starRating > 10 || starRating < 0) {
+            System.out.println("Given rating is out of rating range.");
+            return;
+        }
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("center-1-react"))));
         List<WebElement> moviesInWatchlist = new ArrayList<>(driver.findElement(By.id("center-1-react"))
                 .findElements(By.className("lister-item-content")));
@@ -46,26 +50,30 @@ public class WatchList {
                 theOne = element;
             }
         }
+        if (theOne == null) {
+            System.out.println("There is no movie by this title on this list.");
+            return;
+        }
 
-        if (theOne != null) {
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", theOne);
-            wait.until(ExpectedConditions.elementToBeClickable(theOne
-                    .findElement(By.tagName("button")))).click();
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", theOne);
+        wait.until(ExpectedConditions.elementToBeClickable(theOne.findElement(By.tagName("button")))).click();
 
+        if (starRating == 0) {
+            theOne.findElement(By.className("star-rating-button"))
+                    .findElement(By.className("star-rating-delete"))
+                    .click();
+        } else {
             theOne.findElement(By.className("star-rating-button"))
                     .findElement(By.className("star-rating-stars"))
                     .findElements(By.tagName("a"))
                     .get(starRating - 1)
                     .click();
-        } else {
-            System.out.println("There is no movie by this title on this list.");
         }
     }
 
 
-    public static void deleteMovieFromWatchlist(WebDriver driver, String movieTitleInMyWatchList){
+    public static void deleteMovieFromWatchlist(WebDriver driver, String movieTitleInMyWatchList) {
         List<WebElement> moviesInWatchlist = driver.findElements(By.className("lister-item"));
-
         int index = -1;
         for (int i = 0; i < moviesInWatchlist.size(); i++) {
             if (moviesInWatchlist.get(i).findElement(By.tagName("a")).getText().equals(movieTitleInMyWatchList)) {

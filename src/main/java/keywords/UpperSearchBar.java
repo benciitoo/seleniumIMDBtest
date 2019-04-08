@@ -35,7 +35,6 @@ public class UpperSearchBar {
             System.out.println("Given rating is out of rating range.");
             return;
         }
-
         search(driver, searchKeyWord);
         chooseFirstSearchResult(driver, wait);
         driver.findElement(By.xpath("//*[@id=\"star-rating-widget\"]/div/button/span[1]")).click();
@@ -45,9 +44,6 @@ public class UpperSearchBar {
         } else {
             wait.until(ExpectedConditions.elementToBeClickable(By
                     .xpath(String.format("//*[@id=\"star-rating-widget\"]/div/div/span[1]/span/a[%s]", star)))).click();
-
         }
     }
-
-
 }

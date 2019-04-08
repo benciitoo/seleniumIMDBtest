@@ -15,29 +15,8 @@ public class App {
     public static void main(String[] args) throws Exception {
         User.getMainPage(driver);
         User.signInToIMDBWithUserEmailAndPassword(driver, wait, "bence.banszegi@gmail.com", "imdbpassword");
-        UpperSearchBar.rateMovieThatWasSelectedInUpperSearchBar(driver, wait,"Armageddon", 2 );
-
-
-
-        //UpperSearchBar.rateMovieThatWasSelectedInUpperSearchBar(driver, wait,"The Matrix", 5);
-
-        //WatchList.clickEditOptionInWatchList(driver);
-        //WatchList.deleteMovieFromWatchlist(driver, "The Matrix");
-
-
-        //WatchList.rateMovieByGivenName(driver, wait,"Snatch");
-
-        //Thread.sleep(2000);
-        //User.logout(driver, wait, activity);
-        //User.quitSession(driver);
-        //User.sortWatchListByAlphabetical(driver);
-
-
-        //Thread.sleep(1000);
-        //User.clickOnAscendDescendButton();
-
-        /*Thread.sleep(2000);
-        User.quitSession();*/
+        WatchList.goToWatchList(driver, wait, activity);
+        WatchList.rateMovieByGivenNameInWatchList(driver, wait, "The Matrix", 9);
 
 
     }
