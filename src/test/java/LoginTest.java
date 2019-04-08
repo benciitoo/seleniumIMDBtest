@@ -23,12 +23,13 @@ public class LoginTest {
     @Before
     public void loadMainPage() {
         User.getMainPage(driver);
-    }
-
-    @After
-    public void deleteAllCookies() {
         User.deleteAllCookies(driver);
     }
+
+    /*@After
+    public void deleteAllCookies() {
+        User.deleteAllCookies(driver);
+    }*/
 
     @AfterClass
     public static void quitSession() {

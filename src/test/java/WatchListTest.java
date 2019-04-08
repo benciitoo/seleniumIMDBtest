@@ -1,4 +1,5 @@
 import keywords.User;
+import keywords.WatchList;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -24,7 +25,8 @@ public class WatchListTest {
 
     @Before
     public void goToWatchListPage(){
-        User.goToWatchList(driver, wait, activity);
+        User.deleteAllCookies(driver);
+        WatchList.goToWatchList(driver, wait, activity);
     }
 
     @AfterClass
@@ -32,14 +34,10 @@ public class WatchListTest {
         User.quitSession(driver);
     }
 
-    @After
-    public void deleteAllCookies(){
-        User.deleteAllCookies(driver);
-    }
-
 
     @Test
     public void checkIfBrowserIsOnWatchListPage(){
+        //User.goToWatchList(driver, wait, activity);
         assertEquals("Your Watchlist", User.returnWatchListPageText(driver, wait));
     }
 }

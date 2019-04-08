@@ -1,4 +1,5 @@
 import keywords.User;
+import keywords.WatchList;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -13,8 +14,12 @@ public class App {
     public static void main(String[] args) throws Exception {
         User.getMainPage(driver);
         User.signInToIMDBWithUserEmailAndPassword(driver, wait,"bence.banszegi@gmail.com", "imdbpassword");
-        User.goToWatchList(driver,wait,activity);
-        User.rateMovieByGivenName(driver, wait,"Snatch");
+        WatchList.goToWatchList(driver,wait,activity);
+        WatchList.clickEditOptionInWatchList(driver);
+        WatchList.deleteMovieFromWatchlist(driver, "The Matrix");
+
+
+        //WatchList.rateMovieByGivenName(driver, wait,"Snatch");
 
         //Thread.sleep(2000);
         //User.logout(driver, wait, activity);

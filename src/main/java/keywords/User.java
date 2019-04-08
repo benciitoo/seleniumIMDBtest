@@ -112,85 +112,6 @@ public class User {
     }
 
 
-    //Upper searchbar methods
-    public static void search(WebDriver driver, String searchKeyWord) {
-        driver.findElement(By.id("navbar-query")).sendKeys(searchKeyWord);
-        driver.findElement(By.id("navbar-submit-button")).click();
-    }
-
-    public static void searchInSearchfieldAndAddFirstSuggestionToWatchList(WebDriver driver, WebDriverWait wait, String searchKeyWord) {
-        driver.findElement(By.id("navbar-query")).sendKeys(searchKeyWord);
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")));
-        driver.findElement(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")).click();
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"title-overview-widget\"]/div[2]/div[2]/span/div")));
-        driver.findElement(By.xpath("//*[@id=\"title-overview-widget\"]/div[2]/div[2]/span/div")).click();
-    }
-
-
-    //Watchlist methods
-    public static void goToWatchList(WebDriver driver, WebDriverWait wait, Actions activity) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Watchlist")));
-        activity.moveToElement(driver.findElement(By.linkText("Watchlist"))).build().perform();
-        driver.findElement(By.linkText("Watchlist")).click();
-    }
-
-    public static void clickEditOptionInWatchList(WebDriver driver) {
-        driver.findElement(By.linkText("EDIT")).click();
-    }
-
-    public static void searchInWatchListEditMenuAndAddFirstSuggestionToWatchList(WebDriver driver, String searchKeyWord) {
-        driver.findElement(By.id("add-to-list-search")).sendKeys(searchKeyWord);
-        WebDriverWait waitForSuggestions = new WebDriverWait(driver, 5);
-        waitForSuggestions.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"add-to-list-search-results\"]/a[1]")));
-        driver.findElement(By.xpath("//*[@id=\"add-to-list-search-results\"]/a[1]")).click();
-    }
-
-
-    public static void rateMovieByGivenName (WebDriver driver, WebDriverWait wait, String movieTitleInMyWatchList) throws Exception{
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("center-1-react"))));
-        /*System.out.println(driver.findElement(By.id("center-1-react"))
-                .findElement(By.linkText(movieTitleInMyWatchList)).findElement(By.className("lister-item-year")).getText());*/
-        //Thread.sleep(2000);
-        List<WebElement> moviesInWatchlist = new ArrayList<>(driver.findElement(By.id("center-1-react"))
-                .findElements(By.xpath("(//DIV[@class='lister-item-content'])")));
-        System.out.println(moviesInWatchlist.size());
-
-        WebElement theOne = null;
-        //theOne = moviesInWatchlist.stream().filter(x -> x.findElement(By.tagName("h3")).getText().equals(movieTitleInMyWatchList)).findFirst();
-        for (WebElement element : moviesInWatchlist) {
-            if (element.findElement(By.tagName("h3")).getText().equals(movieTitleInMyWatchList)) {
-                System.out.println(element.findElement(By.tagName("h3")).getText());
-                theOne = element;
-            }
-        }
-
-        if (theOne != null) {
-            wait.until(ExpectedConditions.elementToBeClickable(theOne
-                    .findElement(By.tagName("button")))).click();
-                     // .findElement(By.xpath("//SPAN[@class='star-rating-text']")))).click();
-        } else {
-            System.out.println("nincs ilyen nevű film");
-        }
-
-
-    }
-
-
-    //Sort Watchlist
-    public static void sortWatchListByAlphabetical(WebDriver driver) {
-        Select dropDown = new Select(driver.findElement(By.id("lister-sort-by-options")));
-        dropDown.selectByValue("ALPHA");
-    }
-
-   /* public static void clickOnAscendDescendButton(){
-        driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div/div[1]/div/span/div/div/div[2]/div[1]/div[1]/div[1]/button/span")).click();
-    }*/
-
-
-
-
 
     //for the JUnit tests
     public static String returnSignedInUsername(WebDriver driver) {
@@ -201,21 +122,6 @@ public class User {
         return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
     }
 
-    /*public static String returnErrorMessageIfNoPasswordProvided() {
-        return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
-    }
-
-    public static String returnErrorMessageIfNoEmailProvided() {
-        return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
-    }
-
-    public static String returnErrorMessageIfValidEmailButInvalidPasswordProvided(){
-        return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
-    }
-
-    public static String returnErrorMessageIfInvalidEmailAndInvalidPasswordProvided(){
-        return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
-    }*/
 
     public static List<String> returnErrorMessageIfNoEmailAndNoPasswordProvided(WebDriver driver){
         List<String> errorList = driver.findElement(By.id("auth-error-message-box")).findElements(By.className("a-list-item"))
