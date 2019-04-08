@@ -2,7 +2,6 @@ package keywords;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -22,7 +21,7 @@ public class UpperSearchBar {
     }
 
 
-    public static void searchInSearchfieldAndAddFirstSuggestionToWatchList(WebDriver driver, WebDriverWait wait, String searchKeyWord) throws Exception{
+    public static void searchInSearchfieldAndAddFirstSuggestionToWatchList(WebDriver driver, WebDriverWait wait, String searchKeyWord) throws Exception {
         Thread.sleep(1000);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("navbar-query"))).sendKeys(searchKeyWord);
         Thread.sleep(1000);
@@ -32,19 +31,21 @@ public class UpperSearchBar {
 
 
     public static void rateMovieThatWasSelectedInUpperSearchBar(WebDriver driver, WebDriverWait wait, String searchKeyWord, int star) throws Exception {
-        if (star < 0 || star > 10 ) {
+        if (star < 0 || star > 10) {
             System.out.println("Given rating is out of rating range.");
+            return;
+        }
+
+        search(driver, searchKeyWord);
+        chooseFirstSearchResult(driver, wait);
+        driver.findElement(By.xpath("//*[@id=\"star-rating-widget\"]/div/button/span[1]")).click();
+        if (star == 0) {
+            wait.until(ExpectedConditions.elementToBeClickable(By
+                    .xpath("//*[@id=\"star-rating-widget\"]/div/div/span[1]/a"))).click();
         } else {
-            search(driver, searchKeyWord);
-            chooseFirstSearchResult(driver, wait);
-            driver.findElement(By.xpath("//*[@id=\"star-rating-widget\"]/div/button/span[1]")).click();
-            if (star == 0) {
-                wait.until(ExpectedConditions.elementToBeClickable(By
-                        .xpath("//*[@id=\"star-rating-widget\"]/div/div/span[1]/a"))).click();
-            } else {
-                wait.until(ExpectedConditions.elementToBeClickable(By
-                        .xpath(String.format("//*[@id=\"star-rating-widget\"]/div/div/span[1]/span/a[%s]", star)))).click();
-            }
+            wait.until(ExpectedConditions.elementToBeClickable(By
+                    .xpath(String.format("//*[@id=\"star-rating-widget\"]/div/div/span[1]/span/a[%s]", star)))).click();
+
         }
     }
 

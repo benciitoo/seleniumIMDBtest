@@ -33,6 +33,8 @@ public class WatchList {
 
 
     public static void rateMovieByGivenNameInWatchList (WebDriver driver, WebDriverWait wait, String movieTitleInMyWatchList, int starRating) throws Exception{
+
+
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("center-1-react"))));
         List<WebElement> moviesInWatchlist = new ArrayList<>(driver.findElement(By.id("center-1-react"))
                 .findElements(By.className("lister-item-content")));
@@ -49,8 +51,6 @@ public class WatchList {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", theOne);
             wait.until(ExpectedConditions.elementToBeClickable(theOne
                     .findElement(By.tagName("button")))).click();
-            //theOne.findElement(By.xpath(String.format("//*[@id=\"star-rating-widget\"]/div/div/span[1]/span/a[%s]", star))).click();
-            //theOne.findElement(By.xpath(String.format("//DIV[@class='star-rating']/span[1]/span[1]/a[%s]", star))).click();
 
             theOne.findElement(By.className("star-rating-button"))
                     .findElement(By.className("star-rating-stars"))
@@ -58,17 +58,13 @@ public class WatchList {
                     .get(starRating - 1)
                     .click();
         } else {
-            System.out.println("nincs ilyen nevű film");
+            System.out.println("There is no movie by this title on this list.");
         }
     }
 
 
     public static void deleteMovieFromWatchlist(WebDriver driver, String movieTitleInMyWatchList){
         List<WebElement> moviesInWatchlist = driver.findElements(By.className("lister-item"));
-       /* ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView()", driver.findElement(By.xpath("//*[@id=\"1489765909\"]")));
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(By.xpath("//*[@id=\"1489765909\"]")));
-        driver.findElement(By.id("delete_items")).click();
-        driver.findElement(By.xpath("//*[@id=\"delete_items_form\"]/div/input")).click();*/
 
         int index = -1;
         for (int i = 0; i < moviesInWatchlist.size(); i++) {
@@ -88,7 +84,7 @@ public class WatchList {
             driver.findElement(By.id("delete_items")).click();
             driver.findElement(By.xpath("//*[@id=\"delete_items_form\"]/div/input")).click();
         } else {
-            System.out.println("nincs ilyen nevű film");
+            System.out.println("There is no movie by this title on this list.");
         }
     }
 

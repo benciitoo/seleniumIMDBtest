@@ -15,7 +15,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         User.getMainPage(driver);
         User.signInToIMDBWithUserEmailAndPassword(driver, wait, "bence.banszegi@gmail.com", "imdbpassword");
-        UpperSearchBar.searchInSearchfieldAndAddFirstSuggestionToWatchList(driver, wait, "Armageddon");
+        UpperSearchBar.rateMovieThatWasSelectedInUpperSearchBar(driver, wait,"Armageddon", 2 );
 
 
 
