@@ -22,14 +22,12 @@ public class UpperSearchBar {
     }
 
 
-    public static void searchInSearchfieldAndAddFirstSuggestionToWatchList(WebDriver driver, WebDriverWait wait, String searchKeyWord) {
-        driver.findElement(By.id("navbar-query")).sendKeys(searchKeyWord);
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")));
-        driver.findElement(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a")).click();
-
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"title-overview-widget\"]/div[2]/div[2]/span/div")));
-        driver.findElement(By.xpath("//*[@id=\"title-overview-widget\"]/div[2]/div[2]/span/div")).click();
+    public static void searchInSearchfieldAndAddFirstSuggestionToWatchList(WebDriver driver, WebDriverWait wait, String searchKeyWord) throws Exception{
+        Thread.sleep(1000);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id("navbar-query"))).sendKeys(searchKeyWord);
+        Thread.sleep(1000);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"navbar-suggestionsearch\"]/div[1]/a"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"title-overview-widget\"]/div[2]/div[2]/span/div"))).click();
     }
 
 
