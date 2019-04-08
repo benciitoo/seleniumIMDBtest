@@ -1,16 +1,21 @@
 package keywords;
 
+import javafx.scene.control.Button;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.internal.MouseAction;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +47,10 @@ public class User {
         driver.close();
     }
 
+    public static void cheatMoveMouse(WebDriver driver, Actions activity) throws Exception {
+        activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
+        Thread.sleep(1000);
+    }
 
     //login methods
     public static void navigateToSignInForm(WebDriver driver, WebDriverWait wait) {
@@ -139,6 +148,36 @@ public class User {
     }
 
 
+    public static void rateMovieByGivenName (WebDriver driver, WebDriverWait wait, String movieTitleInMyWatchList) throws Exception{
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.id("center-1-react"))));
+        /*System.out.println(driver.findElement(By.id("center-1-react"))
+                .findElement(By.linkText(movieTitleInMyWatchList)).findElement(By.className("lister-item-year")).getText());*/
+        //Thread.sleep(2000);
+        List<WebElement> moviesInWatchlist = new ArrayList<>(driver.findElement(By.id("center-1-react"))
+                .findElements(By.xpath("(//DIV[@class='lister-item-content'])")));
+        System.out.println(moviesInWatchlist.size());
+
+        WebElement theOne = null;
+        //theOne = moviesInWatchlist.stream().filter(x -> x.findElement(By.tagName("h3")).getText().equals(movieTitleInMyWatchList)).findFirst();
+        for (WebElement element : moviesInWatchlist) {
+            if (element.findElement(By.tagName("h3")).getText().equals(movieTitleInMyWatchList)) {
+                System.out.println(element.findElement(By.tagName("h3")).getText());
+                theOne = element;
+            }
+        }
+
+        if (theOne != null) {
+            wait.until(ExpectedConditions.elementToBeClickable(theOne
+                    .findElement(By.tagName("button")))).click();
+                     // .findElement(By.xpath("//SPAN[@class='star-rating-text']")))).click();
+        } else {
+            System.out.println("nincs ilyen nevű film");
+        }
+
+
+    }
+
+
     //Sort Watchlist
     public static void sortWatchListByAlphabetical(WebDriver driver) {
         Select dropDown = new Select(driver.findElement(By.id("lister-sort-by-options")));
@@ -150,10 +189,7 @@ public class User {
     }*/
 
 
-    public static void cheatMoveMouse(WebDriver driver, Actions activity) throws Exception {
-        activity.moveToElement(driver.findElement(By.id("home_img"))).build().perform();
-        Thread.sleep(1000);
-    }
+
 
 
     //for the JUnit tests

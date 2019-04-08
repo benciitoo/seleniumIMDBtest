@@ -22,10 +22,10 @@ public class WatchListTest {
         User.signInToIMDBWithUserEmailAndPassword(driver, wait,"bence.banszegi@gmail.com", "imdbpassword");
     }
 
-    /*@Before
+    @Before
     public void goToWatchListPage(){
         User.goToWatchList(driver, wait, activity);
-    }*/
+    }
 
     @AfterClass
     public static void quitSession(){
@@ -40,10 +40,6 @@ public class WatchListTest {
 
     @Test
     public void checkIfBrowserIsOnWatchListPage(){
-        User.goToWatchList(driver, wait, activity);
-
-        assertTrue(User.returnWatchListPageText(driver, wait).equals("Your Watchlist"));
+        assertEquals("Your Watchlist", User.returnWatchListPageText(driver, wait));
     }
-
-
 }

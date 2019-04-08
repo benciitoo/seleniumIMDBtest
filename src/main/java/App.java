@@ -14,12 +14,13 @@ public class App {
         User.getMainPage(driver);
         User.signInToIMDBWithUserEmailAndPassword(driver, wait,"bence.banszegi@gmail.com", "imdbpassword");
         User.goToWatchList(driver,wait,activity);
-        Thread.sleep(2000);
-        User.logout(driver, wait, activity);
-        User.quitSession(driver);
-        /*User.goToWatchList();
-        User.sortWatchListByAlphabetical();
-        User.logout();*/
+        User.rateMovieByGivenName(driver, wait,"Snatch");
+
+        //Thread.sleep(2000);
+        //User.logout(driver, wait, activity);
+        //User.quitSession(driver);
+        //User.sortWatchListByAlphabetical(driver);
+
 
         //Thread.sleep(1000);
         //User.clickOnAscendDescendButton();
