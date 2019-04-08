@@ -87,6 +87,7 @@ public class WatchList {
             ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", movieToDelete);
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", movieToDelete);
             driver.findElement(By.id("delete_items")).click();
+            driver.findElement(By.xpath("//*[@id=\"delete_items_form\"]/div/input")).click();
         } else {
             System.out.println("nincs ilyen nevű film");
         }
