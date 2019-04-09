@@ -38,6 +38,6 @@ public class WatchListTest {
     @Test
     public void checkIfBrowserIsOnWatchListPage(){
         WatchList.goToWatchList(driver, wait, activity);
-        assertEquals("Your Watchlist", User.returnWatchListPageText(driver, wait));
+        assertEquals("Your Watchlist", WatchList.returnWatchListPageText(driver, wait));
     }
 }

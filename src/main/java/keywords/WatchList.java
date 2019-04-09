@@ -43,7 +43,6 @@ public class WatchList {
         List<WebElement> moviesInWatchlist = new ArrayList<>(driver.findElement(By.id("center-1-react"))
                 .findElements(By.className("lister-item-content")));
         // .findElements(By.xpath("(//DIV[@class='lister-item-content'])")));  EZ IS MŰKÖDIK
-
         WebElement theOne = null;
         for (WebElement element : moviesInWatchlist) {
             if (element.findElement(By.tagName("h3")).getText().equals(movieTitleInMyWatchList)) {
@@ -82,7 +81,6 @@ public class WatchList {
                 System.out.println(index);
             }
         }
-
         if (index > -1) {
             WebElement movieToDelete = driver.findElements(By.className("lister-item"))
                     .get(index)
@@ -106,4 +104,13 @@ public class WatchList {
    /* public static void clickOnAscendDescendButton(){
         driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/div[3]/div/div[1]/div/span/div/div/div[2]/div[1]/div[1]/div[1]/button/span")).click();
     }*/
+
+
+   //checks if user is on the WatchList page
+    public static String returnWatchListPageText(WebDriver driver, WebDriverWait wait){
+        return wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.xpath("//*[@id=\"center-1-react\"]/div/div[1]/div/div[2]/h1")))
+                .getText();
+        //return driver.findElement(By.xpath("//*[@id=\"center-1-react\"]/div/div[1]/div/div[2]/h1")).getText();
+    }
 }

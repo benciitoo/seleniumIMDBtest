@@ -1,21 +1,11 @@
 package keywords;
 
-import javafx.scene.control.Button;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.internal.MouseAction;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -118,6 +108,7 @@ public class User {
         return driver.findElement(By.id("nbusername")).getText();
     }
 
+
     public static String returnSingleLineLoginErrorMessage(WebDriver driver){
         return driver.findElement(By.id("auth-error-message-box")).findElement(By.className("a-list-item")).getText();
     }
@@ -131,11 +122,6 @@ public class User {
         return errorList;
     }
 
-    public static String returnWatchListPageText(WebDriver driver, WebDriverWait wait){
-        return wait.until(ExpectedConditions
-                .visibilityOfElementLocated(By.xpath("//*[@id=\"center-1-react\"]/div/div[1]/div/div[2]/h1")))
-                .getText();
-        //return driver.findElement(By.xpath("//*[@id=\"center-1-react\"]/div/div[1]/div/div[2]/h1")).getText();
-    }
+
 
 }
