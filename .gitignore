@@ -18,6 +18,7 @@
 *.tar.gz
 *.rar
 *.kotlin_module
+*.mp3
 
 HELP.md
 .gradle

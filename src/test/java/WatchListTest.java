@@ -11,9 +11,9 @@ import static org.junit.Assert.*;
 
 public class WatchListTest {
 
-    static WebDriver driver = new FirefoxDriver();
-    static WebDriverWait wait = new WebDriverWait(driver, 5);
-    static Actions activity = new Actions(driver);
+    private static WebDriver driver = new FirefoxDriver();
+    private static WebDriverWait wait = new WebDriverWait(driver, 5);
+    private static Actions activity = new Actions(driver);
 
 
     @BeforeClass
@@ -30,7 +30,7 @@ public class WatchListTest {
 
     @AfterClass
     public static void quitSession(){
-        User.deleteAllCookies(driver);
+        //User.deleteAllCookies(driver);
         User.quitSession(driver);
     }
 

@@ -1,3 +1,4 @@
+import keywords.MusicInBackground;
 import keywords.User;
 import org.junit.*;
 import org.openqa.selenium.WebDriver;
@@ -10,13 +11,15 @@ import static org.junit.Assert.*;
 
 public class LoginTest {
 
-    static WebDriver driver = new FirefoxDriver();
-    static WebDriverWait wait = new WebDriverWait(driver, 5);
-    static Actions activity = new Actions(driver);
+    private static WebDriver driver = new FirefoxDriver();
+    private static WebDriverWait wait = new WebDriverWait(driver, 5);
+    private static Actions activity = new Actions(driver);
+    private static MusicInBackground music = new MusicInBackground();
 
 
     @BeforeClass
     public static void maximizeBrowser() {
+        music.playMusic();
         User.maximizeBrowser(driver);
     }
 
@@ -34,6 +37,7 @@ public class LoginTest {
     @AfterClass
     public static void quitSession() {
         User.quitSession(driver);
+        music.stopMusic();
     }
 
 
