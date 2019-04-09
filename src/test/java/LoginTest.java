@@ -25,8 +25,8 @@ public class LoginTest {
 
     @Before
     public void loadMainPage() {
-        User.getMainPage(driver);
         User.deleteAllCookies(driver);
+        User.getMainPage(driver);
     }
 
     /*@After
@@ -75,7 +75,7 @@ public class LoginTest {
 
     @Test
     public void loginAttemptWithInvalidEmailAndInvalidPasswordProvided(){
-        User.signInToIMDBWithUserEmailAndPassword(driver, wait,"thereIsNoSuchEmailLikeThis123456@nomail.com", "randomPass");
+        User.signInToIMDBWithUserEmailAndPassword(driver, wait,"thereIsNoSuchEmailLikeThis1234567@nomail.com", "randomPass");
         assertEquals("We cannot find an account with that email address", User.returnSingleLineLoginErrorMessage(driver));
     }
 }

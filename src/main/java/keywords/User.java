@@ -44,8 +44,7 @@ public class User {
 
     //login methods
     public static void navigateToSignInForm(WebDriver driver, WebDriverWait wait) {
-        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("imdb-signin-link"))));
-        driver.findElement(By.id("imdb-signin-link")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("imdb-signin-link")))).click();
         driver.findElement(By.xpath("//*[@id=\"signin-options\"]/div/div[1]/a[1]")).click();
     }
 
